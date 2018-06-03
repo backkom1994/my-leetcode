@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A) {
+        int m = A.size();
+        int n = A[0].size();
+        int temp;
+        for(int k=0;k<m;k++){
+            for( int i = 0 ; i < n/2; i++ ){
+                temp        =  A[k][i];
+                A[k][i]     =  A[k][n-i-1];
+                A[k][n-i-1] =  temp;
+            }
+        }
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                A[i][j]=1-A[i][j];
+        return A;
+    }
+};
