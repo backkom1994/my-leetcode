@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
-        vector<vector<int>> res(r, vector<int>(c));
+        vector<vector<int>> res(r, vector<int>(c)); //way to construct a two-dimensional vector
         int m=nums.size();
         int n=nums[0].size();
         int elemnum=m*n;
