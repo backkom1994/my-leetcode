@@ -1,0 +1,25 @@
+// sorting to see if any of two adjacent elements are equal
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+         if(nums.size()==1) return false;
+         sort(nums.begin(), nums.end()); 
+         for(int i=0;i<nums.size();i++)
+             if(nums[i]==nums[i+1]) return true;
+         return false;
+    }
+};
+
+// construct a dictionary to see if the element already exists in this dictionary
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int,int>res;
+        int m=nums.size(); 
+        for(int i=0;i<m;i++){
+            if(res.count(nums[i])!=0) return true;
+            res[nums[i]]=1;
+        }
+        return false;
+    }
+};
