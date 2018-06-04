@@ -1,0 +1,40 @@
+// first method: gauss sum, a little bit too specific
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n=nums.size();
+        int gausssum=n*(n+1)/2;
+        int sum=0;
+        for(int i=0;i<nums.size();i++)
+            sum+=nums[i];
+        return gausssum-sum;
+    }
+};
+
+//second method: utilize dictionary
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n=nums.size();
+        unordered_map<int,int>mp;
+        for(int i=0;i<n;i++)
+            mp[nums[i]]=1;
+        for(int i=0;i<=n;i++)
+            if(!mp.count(i)) return i;
+    }
+};
+
+//third method: sorting
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(), nums.end());
+        if (nums[0]!=0) return 0;
+        if (nums[n-1]!=n) return n;
+        for(int i=1;i<n;i++){
+            int expect=nums[i-1]+1;
+            if(nums[i]!=expect) return expect;
+        }
+    }
+};
