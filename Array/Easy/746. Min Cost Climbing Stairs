@@ -1,3 +1,4 @@
+//first method:using a dynamic programming array to keep track of the total cost on each stair
 class Solution {
 public:
     int minCostClimbingStairs(vector<int>& cost) {
@@ -6,5 +7,20 @@ public:
         for(int i=2;i<m+1;i++)
             dp[i]=min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2]);
         return dp[m];
+    }
+};
+
+//second method:just keep track of the total cost on the recent two stair without using a whole array
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int m=cost.size();
+        int res,first=0,second=0;
+        for(int i=2;i<m+1;i++){
+            res=min(first+cost[i-2],second+cost[i-1]);
+            first=second;
+            second=res;
+        }   
+        return res;
     }
 };
