@@ -1,0 +1,87 @@
+//first method: sorting and look for the first different elment from the start and the end of the array
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int m=nums.size();
+        vector<int> res(nums);
+        sort(res.begin(),res.end());
+        int i=0,j=m-1;
+        while(nums[i]==res[i]&&i<m) i++;
+        while(nums[j]==res[j]&&i<j) j--;
+        return j-i+1;
+    }
+};
+
+//second method: first find the index at which the sorted array were broken, then find the index of the subarray that contain maxinum and minimum
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int left = -1;
+        int right = -1;
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] < nums[i-1]) {
+                left = i - 1;
+                break;
+            }
+        }
+        if (left == -1) {
+            return 0;
+        }
+        for (int i = nums.size() - 2; i >= 0; --i) {
+            if (nums[i] > nums[i+1]) {
+                right = i + 1;
+                break;
+            }
+        }
+        int min0=INT_MAX;
+        int max0=INT_MIN;
+        int start = min(left, right);
+        int end = max(left, right);      
+        for (int i = start; i <= end; ++i) {
+            min0 = min(min0, nums[i]);
+            max0 = max(max0, nums[i]);
+        }
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] > min0) {
+                start = i;
+                break;
+            }
+        }
+        for (int i = nums.size() - 1; i >= 0; --i) {
+            if (nums[i] < max0) {
+                end = i;
+                break;
+            }
+        }
+        return end - start + 1;
+    }
+};
+// third method:
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int max0 = INT_MIN;
+        int end = -2;
+        //iterate from beginning of array
+        //find the last element which is smaller than the last seen max from 
+        //its left side and mark it as end
+    for(int i = 0; i < nums.size(); i ++){
+        max0 = max(max0, nums[i]);
+        if(nums[i] < max0)
+            end = i;
+    }
+    
+        int min0 = INT_MAX;
+        int begin = -1;
+        //iterate from end of array
+        //find the last element which is bigger than the last seen min from 
+        //its right side and mark it as begin
+    for(int i = nums.size() - 1; i >= 0; i --){
+        min0 = min(min0, nums[i]);
+        if(nums[i] > min0)
+            begin = i;
+    }
+    
+    return end - begin + 1;
+    }
+};
